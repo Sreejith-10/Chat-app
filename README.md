@@ -1,8 +1,30 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Chat zone
 
-Currently, two official plugins are available:
+Chat zone is an web application made with react and firebase which users can add friends and message them.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Screenshots
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+
+## Live
+
+Live project: https://chat-app-167f4.firebaseapp.com/
+
+## Tech Stack
+
+React, TailwindCSS, Firebase 
+
+
+## Features
+
+- Real time chat
+- Search users
+- Fully responsive design 
+
+
+## Feedback
+
+If you have any feedback, please reach out to us at sreejithsree956266@gmail.com
+
