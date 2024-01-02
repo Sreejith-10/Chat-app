@@ -6,7 +6,13 @@ import {
 } from "react-icons/ai";
 import {AuthContextProvider} from "../context/AuthContext";
 import {ChatContextProvider} from "../context/ChatContext";
-import {Timestamp, arrayUnion, doc, serverTimestamp, updateDoc} from "firebase/firestore";
+import {
+	Timestamp,
+	arrayUnion,
+	doc,
+	serverTimestamp,
+	updateDoc,
+} from "firebase/firestore";
 import {v4 as uuid} from "uuid";
 import {db, storage} from "../firbase";
 import {ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
@@ -22,29 +28,33 @@ const KeyBoard = () => {
 		inputFile.current.click();
 	};
 	const handleSend = async () => {
-		console.log(currentUser.uid);
 		if (img) {
-			const storageRef = ref(storage, uuid());
-
-			const uploadTask = uploadBytesResumable(storageRef, img);
-			uploadTask.on(
-				(error) => {
-					console.log(error);
-				},
-				() => {
-					getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-						await updateDoc(doc(db, "chats", data.chatId), {
-							messages: arrayUnion({
-								id: uuid(),
-								text,
-								senderId: currentUser.uid,
-								date: Timestamp.now(),
-								img: downloadURL,
-							}),
-						});
-					});
-				}
-			);
+			try {
+				const storageRef = ref(storage, uuid());
+				const uploadTask = uploadBytesResumable(storageRef, img);
+				uploadTask.on(
+					(error) => {
+						console.log(error);
+					},
+					() => {
+						getDownloadURL(uploadTask.snapshot.ref).then(
+							async (downloadURL) => {
+								await updateDoc(doc(db, "chats", data.chatId), {
+									messages: arrayUnion({
+										id: uuid(),
+										text,
+										senderId: currentUser.uid,
+										date: Timestamp.now(),
+										img: downloadURL,
+									}),
+								});
+							}
+						);
+					}
+				);
+			} catch (err) {
+				console.log(err);
+			}
 		} else {
 			await updateDoc(doc(db, "chats", data.chatId), {
 				messages: arrayUnion({
@@ -56,12 +66,12 @@ const KeyBoard = () => {
 			});
 		}
 
-		await updateDoc(doc(db,"userChat",currentUser.uid),{
-			[data.chatId + ".lastMessage"]:{
-				text
+		await updateDoc(doc(db, "userChat", currentUser.uid), {
+			[data.chatId + ".lastMessage"]: {
+				text,
 			},
-			[data.chatId + ".date"] : serverTimestamp()
-		})
+			[data.chatId + ".date"]: serverTimestamp(),
+		});
 
 		await updateDoc(doc(db, "userChat", data.user.uid), {
 			[data.chatId + ".lastMessage"]: {
@@ -69,8 +79,8 @@ const KeyBoard = () => {
 			},
 			[data.chatId + ".date"]: serverTimestamp(),
 		});
-		setText("")
-	}
+		setText("");
+	};
 	return (
 		<div className="w-full lg:h-[60px] sm:h-[80px]">
 			<div className="w-full lg:h-[60px] sm:h-[80px] bg-slate-200 flex items-center justify-evenly ">
@@ -86,7 +96,7 @@ const KeyBoard = () => {
 						onChange={(event) => {
 							setImg(event.target.files[0]);
 						}}
-						value={img}
+						// value={img}
 					/>
 					<AiOutlinePaperClip
 						onClick={showFile}

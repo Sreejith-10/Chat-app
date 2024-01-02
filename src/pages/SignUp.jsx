@@ -62,7 +62,7 @@ const SignUp = () => {
 			<div className="w-[400px] h-[500px] sm:w-[300px] sm:h-[500px] bg-white rounded-md shadow-md flex items-center justify-center">
 				<form onSubmit={handleFormSubmission}>
 					<h1 className="mb-9 font-bold text-green-600 text-[25px]">
-						User LogIn
+						New user
 					</h1>
 
 					<div className="flex flex-col mb-5">

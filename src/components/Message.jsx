@@ -9,6 +9,7 @@ const Message = ({msg}) => {
 	useEffect(() => {
 		ref.current?.scrollIntoView({behavior: "smooth"});
 	}, [msg]);
+	console.log(msg);
 	return (
 		<>
 			{msg && (
@@ -51,9 +52,12 @@ const Message = ({msg}) => {
 							</div>
 							<div>
 								<h1 className="font-bold ">{msg.text}</h1>
+								{msg.img && <img src={msg.img} alt="" className="w-full h-auto"/>}
 							</div>
 							<div>
-								<h1 className="text-right text-[15px] text-slate-500 font-bold">just now</h1>
+								<h1 className="text-right text-[15px] text-slate-500 font-bold">
+									just now
+								</h1>
 							</div>
 						</div>
 					</div>
